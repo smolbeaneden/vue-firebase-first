@@ -31,7 +31,8 @@
 <script setup lang="ts">
   import { ref, toRaw } from 'vue'
   import { collection, doc, setDoc , addDoc} from 'firebase/firestore'
-  import { submitted } from '@/firebase.ts'
+  import { db } from '@/firebase.ts'
+  import moment from "moment";
   const isSubmitting = ref("Submit");
 
   const formData = ref({
@@ -46,20 +47,29 @@
   async function handleSubmit() {
     try {
       isSubmitting.value = "submitting...";
-       await addDoc(collection(submitted, "submitted forms"),
-              { name: formData.value.name,
-                  email: formData.value.email,
-                  phoneNumber: formData.value.phoneNumber
-              });
+      if(formData.value.phoneNumber.length != 10 || typeof Number(formData.value.phoneNumber) != "number") {
+          alert("Please enter a valid phone number!");
+          return;
+      }
 
-      alert("תודה רבה! ניצור אתכם קשר בימים הקרובים:)");
+          const docRef = await addDoc(collection(db, "submitted"),{
+              name: formData.value.name,
+              email: formData.value.email,
+              phoneNumber: formData.value.phoneNumber,
+              timeStamp: moment().format("MMMM Do YYYY, HH:mm:ss"),
+          })
 
-      isSubmitted.value = true
-      formData.value =({
-        name: '',
-        email: '',
-        phoneNumber: '',
-      })
+
+          alert("תודה רבה! ניצור אתכם קשר בימים הקרובים:)");
+
+          isSubmitted.value = true
+          formData.value =({
+              name: '',
+              email: '',
+              phoneNumber: '',
+          })
+
+
 
     } catch (error) {
 
@@ -77,12 +87,12 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900');
 
 .form {
-  background-color: rgba(203, 184, 184, 0.47);
+  background-color: rgba(255, 255, 255, 0.47);
   padding: 2em;
   border-radius: 1em;
   font-family: 'Poppins', sans-serif;
   border-color: rgba(100, 108, 255, 0.51);
-  color: white;
+  color: rgba(255, 255, 255, 0.73);
   border-width: 0.2em;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   text-shadow: rgba(100, 108, 255, 0.51) 1px 0 5px ;

@@ -1,27 +1,20 @@
 @import './base.css';
 
 #app {
-  max-width: 1280px;
+
   margin: 0 auto;
-  padding: 2rem;
+
   font-weight: normal;
+
 }
 body{
   margin-top: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+
   font-family: monospace;
 
-  /* New background styles */
-  background-image: url('./pic1.jpg'); /* Replace with your image path */
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: top center;
 }
 
-a,
+
 .green {
   text-decoration: none;
   color: hsla(160, 100%, 37%, 1);
@@ -60,13 +53,11 @@ button:focus-visible {
 
 @media (min-width: 1024px) {
   body {
-    display: flex;
-    place-items: center;
+
   }
 
   #app {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
+    grid-template-columns: 1fr;
   }
 }

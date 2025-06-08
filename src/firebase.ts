@@ -7,9 +7,10 @@ import { getFirestore, collection } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+const config = {
     apiKey: "AIzaSyAJpA0XbWrYnCA_E_J9tnPN9oH0H8E12hk",
     authDomain: "landing-page-a6a08.firebaseapp.com",
+    databaseURL: "https://landing-page-a6a08-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "landing-page-a6a08",
     storageBucket: "landing-page-a6a08.firebasestorage.app",
     messagingSenderId: "200230849264",
@@ -18,8 +19,7 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-export const firebaseApp = initializeApp(firebaseConfig);
+export const firebaseApp = initializeApp(config)
 const analytics = getAnalytics(firebaseApp);
-const db = getFirestore(firebaseApp);
+export const db = getFirestore(firebaseApp);
 
-export const submitted = collection(db, "submitted forms");
